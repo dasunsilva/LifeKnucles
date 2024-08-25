@@ -34,7 +34,7 @@ export default function AppHeader({ title }: AppHeaderProps) {
     <View>
       <Appbar.Header className="bg-primary">
         <Appbar.Content title={title} />
-        <Appbar.Action icon="magnify" onPress={() => {}} />
+        {/* <Appbar.Action icon="magnify" onPress={() => {}} /> */}
         <Appbar.Action icon="bell" onPress={() => {}} />
         <Appbar.Action
           icon="menu"
