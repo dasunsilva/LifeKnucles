@@ -1,9 +1,11 @@
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PaperProvider } from "react-native-paper";
+import { View, ActivityIndicator, ImageBackground } from "react-native";
 import "react-native-reanimated";
+import image from "@/constants/image";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -25,14 +27,27 @@ export default function RootLayout() {
     "Montserrat-Italic": require("../assets/fonts/Montserrat-Italic-VariableFont_wght.ttf"),
   });
 
+  const [appIsReady, setAppIsReady] = useState(false);
+
   useEffect(() => {
     if (loaded) {
+      setAppIsReady(true);
       SplashScreen.hideAsync();
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
+  if (!appIsReady) {
+    return (
+      <ImageBackground
+        source={image.bgimage}
+        style={{ flex: 1 }}
+        resizeMode="cover"
+      >
+        <View>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      </ImageBackground>
+    );
   }
 
   return (
