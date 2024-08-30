@@ -1,37 +1,62 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import React, { useState } from "react";
+import { BottomNavigation } from "react-native-paper";
+import Home from "./home";
+import Community from "./community";
+import Info from "./info";
+import LeaderBoard from "./leaderboard";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    {
+      key: "home",
+      title: "Home",
+      focusedIcon: "home",
+      unfocusedIcon: "home-outline",
+    },
+    {
+      key: "community",
+      title: "Community",
+      focusedIcon: "account-group",
+      unfocusedIcon: "account-group-outline",
+    },
+    {
+      key: "leaderboard",
+      title: "Status",
+      focusedIcon: "message",
+      unfocusedIcon: "message-outline",
+    },
+    {
+      key: "info",
+      title: "Info",
+      focusedIcon: "information",
+      unfocusedIcon: "information-outline",
+    },
+  ]);
+
+  const renderScene = BottomNavigation.SceneMap({
+    home: Home,
+    community: Community,
+    info: Info,
+    leaderboard: LeaderBoard,
+  });
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+    <BottomNavigation
+      shifting={true}
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+      barStyle={{
+        backgroundColor: "#2E8B57",
+        elevation: 1,
+        borderRadius: 10,
+      }}
+      sceneAnimationEnabled={false}
+      activeColor="white"
+      inactiveColor="black"
+      compact={true}
+      safeAreaInsets={{ bottom: 0 }}
+    />
   );
 }
