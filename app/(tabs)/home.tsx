@@ -24,7 +24,7 @@ export default function Home() {
         size="medium"
         mode="elevated"
         className="absolute m-4 right-0 bottom-0 bg-primary"
-        onPress={() => console.log("Pressed")}
+        onPress={() => console.log("Pressed FAB")}
       />
     </>
   );
