@@ -8,6 +8,10 @@ interface HomeNotificationProps {
   description: string;
 }
 
+const fireIcon = () => (
+  <Avatar.Icon size={45} icon="fire" className="bg-red-500" />
+);
+
 export default function HomeNotification({
   id,
   title,
@@ -22,9 +26,7 @@ export default function HomeNotification({
         subtitle={date + " " + time}
         titleStyle={{ fontWeight: "600" }}
         subtitleStyle={{ color: "#6b7280" }}
-        left={() => (
-          <Avatar.Icon size={45} icon="fire" className="bg-red-500" />
-        )}
+        left={fireIcon}
       />
       <Card.Content>
         <Text className="text-gray-700">{description}</Text>
