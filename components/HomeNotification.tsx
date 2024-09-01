@@ -32,7 +32,7 @@ export default function HomeNotification({
   confirmedCount,
   spamCount,
   current,
-}: HomeNotificationProps) {
+}: Readonly<HomeNotificationProps>) {
   return (
     <Card
       className={`m-2 shadow-lg rounded-lg ${
