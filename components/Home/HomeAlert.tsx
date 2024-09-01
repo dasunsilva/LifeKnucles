@@ -1,5 +1,5 @@
 import { FlatList } from "react-native";
-import HomeNotification from "./HomeNotification";
+import HomeAlertCard from "./HomeAlertCard";
 
 const DATA = [
   {
@@ -64,7 +64,7 @@ export default function HomeAlert() {
     <FlatList
       data={DATA}
       renderItem={({ item }) => (
-        <HomeNotification
+        <HomeAlertCard
           id={item.id}
           title={item.title}
           date={item.date}

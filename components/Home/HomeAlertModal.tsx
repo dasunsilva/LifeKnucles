@@ -1,14 +1,16 @@
 import { View } from "react-native";
 import {
-  Avatar,
   Button,
-  Card,
   Icon,
   MD2Colors,
+  Modal,
+  Portal,
   Text,
 } from "react-native-paper";
 
-interface HomeNotificationProps {
+interface HomeAlertModalProps {
+  visible: boolean;
+  hideModal: () => void;
   id: string;
   title: string;
   date: string;
@@ -16,14 +18,11 @@ interface HomeNotificationProps {
   description: string;
   confirmedCount: number;
   spamCount: number;
-  current: boolean;
 }
 
-const fireIcon = () => (
-  <Avatar.Icon size={45} icon="fire" className="bg-red-500" />
-);
-
-export default function HomeNotification({
+export default function HomeAlertModal({
+  visible,
+  hideModal,
   id,
   title,
   date,
@@ -31,23 +30,21 @@ export default function HomeNotification({
   description,
   confirmedCount,
   spamCount,
-  current,
-}: Readonly<HomeNotificationProps>) {
+}: Readonly<HomeAlertModalProps>) {
   return (
-    <Card
-      className={`m-2 shadow-lg rounded-lg ${
-        current ? "bg-red-100 border-l-4 border-red-600" : "bg-white"
-      }`}
-    >
-      <Card.Title
-        title={title}
-        subtitle={date + " " + time}
-        titleStyle={{ fontWeight: "600", color: "#111827", fontSize: 18 }}
-        subtitleStyle={{ color: "#6b7280" }}
-        left={fireIcon}
-      />
-      <Card.Content>
-        <Text className="text-gray-700">{description}</Text>
+    <Portal>
+      <Modal
+        visible={visible}
+        onDismiss={hideModal}
+        contentContainerStyle={{
+          padding: 20,
+          backgroundColor: "white",
+          margin: 20,
+          borderRadius: 10,
+        }}
+      >
+        <Text variant="titleLarge">{title}</Text>
+        <Text className="text-gray mb-2">{date + " " + time}</Text>
         <View className="flex-row justify-between">
           <View className="flex-row items-center">
             <Icon source="check-circle" size={20} color={MD2Colors.green500} />
@@ -58,12 +55,11 @@ export default function HomeNotification({
             <Text className="text-red-500"> {spamCount} Marked as Spam</Text>
           </View>
         </View>
-      </Card.Content>
-      <Card.Actions>
-        <Button textColor="green" dark={true}>
-          View
+        <Text className="mb-4 mt-2">{description}</Text>
+        <Button onPress={hideModal} className="mt-4">
+          Close
         </Button>
-      </Card.Actions>
-    </Card>
+      </Modal>
+    </Portal>
   );
 }

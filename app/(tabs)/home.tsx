@@ -1,5 +1,5 @@
 import AppHeader from "@/components/AppHeader";
-import HomeAlert from "@/components/HomeAlert";
+import HomeAlert from "@/components/Home/HomeAlert";
 import WildfireMap from "@/components/WildfireMap";
 import React from "react";
 import { View } from "react-native";
