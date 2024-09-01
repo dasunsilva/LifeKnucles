@@ -9,6 +9,8 @@ const DATA = [
     time: "02:49 PM",
     description:
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
+    confirmedCount: 5,
+    spamCount: 2,
   },
   {
     id: "2",
@@ -17,6 +19,8 @@ const DATA = [
     time: "02:49 PM",
     description:
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
+    confirmedCount: 8,
+    spamCount: 3,
   },
   {
     id: "3",
@@ -25,6 +29,8 @@ const DATA = [
     time: "02:49 PM",
     description:
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
+    confirmedCount: 5,
+    spamCount: 2,
   },
   {
     id: "4",
@@ -33,6 +39,8 @@ const DATA = [
     time: "02:49 PM",
     description:
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
+    confirmedCount: 50,
+    spamCount: 25,
   },
   {
     id: "5",
@@ -41,6 +49,8 @@ const DATA = [
     time: "02:49 PM",
     description:
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
+    confirmedCount: 15,
+    spamCount: 32,
   },
 ];
 
@@ -55,6 +65,8 @@ export default function HomeAlert() {
           date={item.date}
           time={item.time}
           description={item.description}
+          confirmedCount={item.confirmedCount}
+          spamCount={item.spamCount}
         />
       )}
       keyExtractor={(item) => item.id}

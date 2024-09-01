@@ -1,4 +1,12 @@
-import { Avatar, Button, Card, Text } from "react-native-paper";
+import { View } from "react-native";
+import {
+  Avatar,
+  Button,
+  Card,
+  Icon,
+  MD2Colors,
+  Text,
+} from "react-native-paper";
 
 interface HomeNotificationProps {
   id: string;
@@ -6,6 +14,8 @@ interface HomeNotificationProps {
   date: string;
   time: string;
   description: string;
+  confirmedCount: number;
+  spamCount: number;
 }
 
 const fireIcon = () => (
@@ -18,21 +28,35 @@ export default function HomeNotification({
   date,
   time,
   description,
+  confirmedCount,
+  spamCount,
 }: HomeNotificationProps) {
   return (
     <Card className="m-2 bg-white shadow-lg rounded-lg">
       <Card.Title
         title={title}
         subtitle={date + " " + time}
-        titleStyle={{ fontWeight: "600" }}
+        titleStyle={{ fontWeight: "600", color: "#111827", fontSize: 18 }}
         subtitleStyle={{ color: "#6b7280" }}
         left={fireIcon}
       />
       <Card.Content>
         <Text className="text-gray-700">{description}</Text>
+        <View className="flex-row justify-between">
+          <View className="flex-row items-center">
+            <Icon source="check-circle" size={20} color={MD2Colors.green500} />
+            <Text className="text-green-500"> {confirmedCount} Confirmed</Text>
+          </View>
+          <View className="flex-row items-center">
+            <Icon source="alert-circle" size={20} color={MD2Colors.red500} />
+            <Text className="text-red-500"> {spamCount} Marked as Spam</Text>
+          </View>
+        </View>
       </Card.Content>
       <Card.Actions>
-        <Button className="text-red-500">Mark as Done</Button>
+        <Button textColor="green" dark={true}>
+          View
+        </Button>
       </Card.Actions>
     </Card>
   );
