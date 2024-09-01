@@ -16,6 +16,7 @@ interface HomeNotificationProps {
   description: string;
   confirmedCount: number;
   spamCount: number;
+  current: boolean;
 }
 
 const fireIcon = () => (
@@ -30,9 +31,14 @@ export default function HomeNotification({
   description,
   confirmedCount,
   spamCount,
+  current,
 }: HomeNotificationProps) {
   return (
-    <Card className="m-2 bg-white shadow-lg rounded-lg">
+    <Card
+      className={`m-2 shadow-lg rounded-lg ${
+        current ? "bg-red-100 border-l-4 border-red-600" : "bg-white"
+      }`}
+    >
       <Card.Title
         title={title}
         subtitle={date + " " + time}

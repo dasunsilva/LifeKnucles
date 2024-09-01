@@ -11,6 +11,7 @@ const DATA = [
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
     confirmedCount: 5,
     spamCount: 2,
+    current: true,
   },
   {
     id: "2",
@@ -21,6 +22,7 @@ const DATA = [
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
     confirmedCount: 8,
     spamCount: 3,
+    current: false,
   },
   {
     id: "3",
@@ -31,6 +33,7 @@ const DATA = [
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
     confirmedCount: 5,
     spamCount: 2,
+    current: false,
   },
   {
     id: "4",
@@ -41,6 +44,7 @@ const DATA = [
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
     confirmedCount: 50,
     spamCount: 25,
+    current: false,
   },
   {
     id: "5",
@@ -51,6 +55,7 @@ const DATA = [
       "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
     confirmedCount: 15,
     spamCount: 32,
+    current: false,
   },
 ];
 
@@ -67,6 +72,7 @@ export default function HomeAlert() {
           description={item.description}
           confirmedCount={item.confirmedCount}
           spamCount={item.spamCount}
+          current={item.current}
         />
       )}
       keyExtractor={(item) => item.id}
