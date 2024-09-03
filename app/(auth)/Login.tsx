@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  ImageBackground,
-  TextInput,
-  View,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { ImageBackground, TextInput, View } from "react-native";
 import image from "@/constants/image";
 import { useRouter } from "expo-router";
+import CustomButton from "@/components/CustomButton";
 
 export default function Login() {
   const router = useRouter();
@@ -31,14 +26,11 @@ export default function Login() {
           className="bg-white/50 px-4 py-4 rounded-full mb-10 text-lg text-gray-700 border border-black  w-full font-pregular"
         />
 
-        <TouchableOpacity
-          className="bg-green-600 py-1 rounded-full w-40  shadow-2xl"
-          onPress={() => router.push("/home")}
-        >
-          <Text className="text-white text-center text-lg font-pregular">
-            Log In
-          </Text>
-        </TouchableOpacity>
+        <CustomButton
+          text={"Sign-in"}
+          onpress={() => router.push("home")}
+          icon="login"
+        />
       </View>
     </ImageBackground>
   );

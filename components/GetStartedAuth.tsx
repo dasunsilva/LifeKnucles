@@ -1,36 +1,24 @@
 import { View, Text } from "react-native";
 import { Button, Divider } from "react-native-paper";
+import CustomButton from "./CustomButton";
 import { useRouter } from "expo-router";
 
 export default function GetStartedAuth() {
   const router = useRouter();
-
   return (
     <View className="mt-6">
-      <View className="flex-row space-x-4">
-        <Button
-          mode="contained"
-          className="w-[150px] h-[55px]"
-          contentStyle={{ height: "100%" }}
-          buttonColor="#419A00"
-          textColor="white"
-          labelStyle={{ fontSize: 16, fontFamily: "Poppins-Bold" }}
-          onPress={() => router.push("Login")}
-        >
-          Sign-in
-        </Button>
+      <View className="flex-row justify-between row space-x-4">
+        <CustomButton
+          text={"Sign-in"}
+          onpress={() => router.push("Login")}
+          icon="login"
+        />
 
-        <Button
-          mode="contained"
-          className="w-[150px] h-[55px]"
-          contentStyle={{ height: "100%" }}
-          buttonColor="#419A00"
-          textColor="white"
-          labelStyle={{ fontSize: 16, fontFamily: "Poppins-Bold" }}
-          onPress={() => console.log("Sign-up Button Pressed")}
-        >
-          Sign-up
-        </Button>
+        <CustomButton
+          text={"Sign-up"}
+          onpress={() => console.log("Sign Up")}
+          icon="account-plus"
+        />
       </View>
 
       <Text className="text-white text-center mt-4">or</Text>
