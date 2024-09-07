@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-      primary: "#161622",
+      primary: "#2E8B57",
       secondary: {
         DEFAULT: "#FF9C01",
         100: "#FF9001",
@@ -18,9 +18,12 @@ module.exports = {
       gray: {
         100: "#CDCDE0",
       },
-      forestgreen: {
-        100:"#2E8B57"
+      goldenyellow: {
+        100:"#ffa91a"
       },
+      blue:{
+        100:"#F29318"
+      }
     },
     fontFamily: {
       pthin: ["Poppins-Thin", "sans-serif"],
@@ -32,6 +35,9 @@ module.exports = {
       pbold: ["Poppins-Bold", "sans-serif"],
       pextrabold: ["Poppins-ExtraBold", "sans-serif"],
       pblack: ["Poppins-Black", "sans-serif"],
+      marker: ["PermanentMarker-Regular", "sans-serif"],
+      montserrat: ["Montserrat-Black", "sans-serif"],
+      montserratItalic: ["Montserrat-Italic", "sans-serif"],
     },},
   },
   plugins: [],
