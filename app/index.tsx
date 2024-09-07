@@ -1,10 +1,12 @@
 import image from "@/constants/image";
+import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Button, Divider } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
+  const router = useRouter();
   return (
     <SafeAreaView className="bg-primary">
       <View className="w-full flex justify-center items-center h-full px-4">
@@ -41,7 +43,7 @@ export default function Index() {
               mode="contained"
               className="w-full h-full justify-center"
               contentStyle={{ height: "100%" }}
-              onPress={() => console.log("Sign-in Button Pressed")}
+              onPress={() => router.push("/WildFireAlert")}
             >
               Sign-in
             </Button>
