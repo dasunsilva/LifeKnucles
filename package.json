@@ -36,10 +36,7 @@
     "react-hook-form": "^7.53.0",
     "react-native": "0.74.5",
     "react-native-gesture-handler": "~2.16.1",
-<<<<<<< HEAD
     "react-native-image-picker": "^7.1.2",
-=======
->>>>>>> 40dbc777601d2583a960b9229ac617d7052477c7
     "react-native-maps": "^1.18.0",
     "react-native-paper": "^5.12.5",
     "react-native-reanimated": "~3.10.1",
