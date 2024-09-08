@@ -1,59 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  View,
-  TextInput,
-  Button,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import MapView, { Polygon } from "react-native-maps";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Camera, CameraView } from "expo-camera"; // Correct import
+import AppHeader from "@/components/AppHeader";
+import MapSections from "@/components/common/MapSections";
+import WildfireAlertForm from "@/components/WildfireAlertFrom";
+import { Camera, CameraView } from "expo-camera";
+import React, { useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import MapView from "react-native-maps";
 
-interface FormData {
+export interface FormData {
+  markedSections: Sections[];
   name: string;
-  email: string;
-  age: number;
-  photo: string;
+  address: string;
+  contactNumber: string;
+  photos: string[];
 }
 
-const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required("Name is required")
-    .min(2, "Name must be at least 2 characters"),
-  email: yup
-    .string()
-    .required("Email is required")
-    .email("Must be a valid email"),
-  age: yup
-    .number()
-    .required("Age is required")
-    .positive("Age must be a positive number")
-    .integer("Age must be an integer")
-    .min(18, "You must be at least 18 years old")
-    .max(120, "Age must be less than 120"),
-  photo: yup.string().required("Photo is required"),
-});
+const initialValues: FormData = {
+  markedSections: [],
+  name: "",
+  address: "",
+  contactNumber: "",
+  photos: [],
+};
 
 const WildfireAlert: React.FC = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<FormData>({
-    resolver: yupResolver(schema),
-  });
-
+  const [formData, setFormData] = useState<FormData>(initialValues);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-  const cameraRef = useRef<CameraView | null>(null); // Correctly typed ref
-  const [photoUri, setPhotoUri] = useState<string | null>(null);
+  const cameraRef = useRef<CameraView | null>(null);
   const [showCamera, setShowCamera] = useState<boolean>(false);
 
   useEffect(() => {
@@ -67,157 +39,69 @@ const WildfireAlert: React.FC = () => {
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
       if (photo) {
-        setPhotoUri(photo.uri);
-        setValue("photo", photo.uri); // Save photo URI to form state
-        setShowCamera(false); // Hide camera after taking picture
+        setFormData((currentData) => ({
+          ...currentData,
+          photos: [...formData.photos, photo.uri],
+        }));
+        setShowCamera(false);
       }
     }
   };
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log("Form Data:", data);
+  const onSubmit = () => {
+    console.log("Form Data:");
   };
 
-  if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
-
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView
-        style={styles.scrollView}
-        alwaysBounceHorizontal={true}
-        showsHorizontalScrollIndicator={true}
-      >
-        <View style={styles.header}></View>
-        <View style={styles.mapContainer}>
+    <>
+      <View style={styles.container}>
+        <View>
+          <AppHeader title="Alert a Fire" />
+        </View>
+
+        <View style={styles.mapArea}>
           <MapView
             style={styles.map}
+            provider={"google"}
+            mapType="satellite"
             initialRegion={{
-              latitude: 37.78822,
-              longitude: -122.4324,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
+              latitude: 7.44,
+              longitude: 80.75506,
+              latitudeDelta: 0.25,
+              longitudeDelta: 0.25,
             }}
           >
-            <Polygon
-              coordinates={[
-                { latitude: 37.78825, longitude: -122.4324 },
-                { latitude: 37.78925, longitude: -122.4324 },
-                { latitude: 37.78925, longitude: -122.4314 },
-                { latitude: 37.78825, longitude: -122.4314 },
-              ]}
-              tappable={true}
-              onPress={() => alert("First Polygon Area Clicked!")}
-              strokeColor="#FF0000"
-              fillColor="rgba(255, 0, 0, 0.5)"
-            />
-
-            <Polygon
-              coordinates={[
-                { latitude: 37.78855, longitude: -122.432 },
-                { latitude: 37.78955, longitude: -122.432 },
-                { latitude: 37.78955, longitude: -122.431 },
-                { latitude: 37.78855, longitude: -122.431 },
-              ]}
-              tappable={true}
-              onPress={() => alert("Second Polygon Area Clicked!")}
-              strokeColor="#0000FF"
-              fillColor="rgba(0, 0, 255, 0.5)"
-            />
+            <MapSections formData={formData} setFormData={setFormData} />
           </MapView>
         </View>
-        <View style={styles.form}>
-          <View style={styles.container}>
-            <Text>Name</Text>
-            <Controller
-              control={control}
-              name="name"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  style={styles.input}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            {errors.name && (
-              <Text style={styles.error}>{errors.name.message}</Text>
-            )}
 
-            <Text>Email</Text>
-            <Controller
-              control={control}
-              name="email"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  style={styles.input}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  keyboardType="email-address"
-                />
-              )}
-            />
-            {errors.email && (
-              <Text style={styles.error}>{errors.email.message}</Text>
-            )}
+        <View style={styles.formArea}>
+          <WildfireAlertForm
+            formData={formData}
+            setFormData={setFormData}
+            onSubmit={onSubmit}
+            setShowCamera={setShowCamera}
+          />
+        </View>
+      </View>
 
-            <Text>Age</Text>
-            <Controller
-              control={control}
-              name="age"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  style={styles.input}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value ? value.toString() : ""}
-                  keyboardType="numeric"
-                />
-              )}
-            />
-            {errors.age && (
-              <Text style={styles.error}>{errors.age.message}</Text>
-            )}
-
-            <Text>Photo</Text>
-            {photoUri ? (
-              <Image source={{ uri: photoUri }} style={styles.image} />
-            ) : (
-              <Button title="Take Photo" onPress={() => setShowCamera(true)} />
-            )}
-            {errors.photo && (
-              <Text style={styles.error}>{errors.photo.message}</Text>
-            )}
-
-            {showCamera && (
-              <View style={styles.cameraContainer}>
-                <CameraView style={styles.camera} ref={cameraRef} />
-                <View style={styles.cameraButtonContainer}>
-                  <Button
-                    title="Take Picture"
-                    onPress={takePicture}
-                    color="white"
-                  />
-                  <Button
-                    title="Cancel"
-                    onPress={() => setShowCamera(false)}
-                    color="red"
-                  />
-                </View>
-              </View>
-            )}
-
-            <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      {showCamera && (
+        <View style={styles.cameraContainer}>
+          <CameraView style={styles.camera} ref={cameraRef} />
+          <View style={styles.cameraButtonContainer}>
+            <TouchableOpacity style={styles.cameraButton} onPress={takePicture}>
+              <Text style={styles.cameraButtonText}>Take Picture</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.cameraButton, styles.cancelButton]}
+              onPress={() => setShowCamera(false)}
+            >
+              <Text style={styles.cameraButtonText}>Cancel</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      )}
+    </>
   );
 };
 
@@ -226,54 +110,43 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
-  scrollView: { flex: 1 },
-  header: {
-    backgroundColor: "red",
-    height: 100,
+  container: {
+    flex: 1,
   },
-  mapContainer: {
-    height: 200,
-  },
-  form: {
-    backgroundColor: "blue",
-    height: 4000,
+  mapArea: {
+    flex: 0.5,
   },
   map: {
     flex: 1,
   },
-  container: {
-    padding: 20,
-  },
-  input: {
-    borderColor: "#ccc",
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-  },
-  error: {
-    color: "red",
-    marginBottom: 10,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    marginBottom: 10,
-  },
-  cameraContainer: {
-    position: "relative",
-    width: "100%",
-    height: 400,
-  },
-  camera: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "flex-end",
+  formArea: {
+    flex: 0.5,
+    paddingHorizontal: 15,
+    marginVertical: 15,
   },
   cameraButtonContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    paddingBottom: 20,
+    justifyContent: "space-between",
+    padding: 20,
+  },
+  cameraButton: {
+    backgroundColor: "#2E8B57", // Primary color
+    padding: 10,
+    borderRadius: 5,
+  },
+  cancelButton: {
+    backgroundColor: "red",
+  },
+  cameraButtonText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  cameraContainer: {
+    ...StyleSheet.absoluteFillObject, // Full screen
+    justifyContent: "flex-end",
+  },
+  camera: {
+    ...StyleSheet.absoluteFillObject, // Full screen
   },
 });
 
