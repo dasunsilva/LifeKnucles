@@ -1,19 +1,19 @@
+import { FormData } from "@/app/WildFireAlert";
 import { FormColors } from "@/constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 import React, { SetStateAction } from "react";
 import { SubmitHandler } from "react-hook-form";
 import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import CustomButton from "./common/Button";
-import { Ionicons } from "@expo/vector-icons";
-import { FormData } from "@/app/WildFireAlert";
-import * as ImagePicker from "expo-image-picker";
 import IconButton from "./common/IconButton";
 
 const WildfireAlertForm = ({

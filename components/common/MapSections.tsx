@@ -1,7 +1,7 @@
+import { FormData } from "@/app/WildFireAlert";
 import React, { SetStateAction, useMemo } from "react";
 import { Polygon } from "react-native-maps";
 import MapFireIndicator from "./FireMarkers";
-import { FormData } from "@/app/WildFireAlert";
 import sections from "./SectionCoordinates";
 
 // Define constants outside the component

@@ -1,12 +1,12 @@
 import { FormColors } from "@/constants/Colors";
 import React from "react";
 import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  View,
   GestureResponderEvent,
   Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 interface Dimensions {

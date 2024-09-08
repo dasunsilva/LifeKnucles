@@ -1,10 +1,10 @@
 import { FormColors } from "@/constants/Colors";
-import React, { ReactNode } from "react";
+import React from "react";
 import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
   GestureResponderEvent,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
 } from "react-native";
 
 interface CustomButtonProps {
